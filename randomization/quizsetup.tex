@@ -1,0 +1,31 @@
+% General Information about this quiz
+\course[CSC165 Data Structures]
+\sem[Fall 2024]
+\tdate{\today}  % optional or you can pass a different date
+\qtitle{Quiz 02}
+
+% The quiz questions and structure for each quiz
+% Argument #1 is the number of questions. 
+% #2 is a list of files that contain the questions. 
+%     The questions will be written in that order.
+% #3 is a list of lists. Each element corresponds to the question options for each file/question.
+\allquestions{3}{parsons,traceif,writeassign}{{a,b,c,d},{a},{a}}
+
+% You can label your versions differently (but use letters only!)
+% The labels here must match what is in the question file.
+% I am using a, b, c, ...
+
+% traceif and writeassign have random elements, so even though there is only 1 version,
+% every time version a is invoked, it should produce a unique question
+\quizversions{
+    {a,a,a},
+    {b,a,a},
+    {c,a,a},
+    {d,a,a},
+    {a,a,a}, 
+    {b,a,a},
+    {c,a,a},
+    {d,a,a},
+    % Must have comma after last list to recognize as a list. Not sure why???
+    % Because of this last comma, one extra blank quiz version is created
+}

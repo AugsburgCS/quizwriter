@@ -1,0 +1,295 @@
+\documentclass[11pt]{exam}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{listings}
+\usepackage{forloop}
+\usepackage{pgffor}
+\usepackage{fancyvrb}
+
+\setlength{\topmargin}{-1.0in} \setlength{\textheight}{9.50in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\textwidth}{6.75in}
+
+% removing indentation from all paragraphs
+\setlength{\parindent}{0pt}
+
+% but maybe this instead 
+% \usepackage{parskip}% http://ctan.org/pkg/parskip
+% from https://tex.stackexchange.com/questions/55015/how-to-remove-indentation-for-all-paragraphs
+
+% As the USER of this quiz writer, you have 4 jobs ...
+% 1) Create a folder for the quiz you want to create
+% 2) Create a file for each question inside that folder
+%    Each question has a preamble, postamble, and versions
+% 3) Create the setup file that identifies questions and quiz versions.
+% 4) Set the qfolder (quiz folder) and qsetup (quiz setup file)
+%       to correspond to the folder/files you created above.
+%
+
+% _____________ USER DEFINED folder and setup file ___________
+% specify which folder contains questions for the quiz
+% specify which file in this folder contains setup information
+
+\def\qfolder{functions}   % << YOU SET THIS
+\def\qsetup{quizsetup}  % << YOU SET THIS
+
+% combine for complete path to be used later
+\edef\setupfile{\qfolder/\qsetup}
+
+%________ Set up for the header _________________
+% These commands are called from the quizsetup.tex file
+% to make header specific to that quiz
+
+% Using CSC165 as the default
+\newcommand{\course}[1][CSC165 Introduction to Programming] {
+    \def\coursetitle{#1}
+}
+\newcommand{\sem}[1][Fall 2024] {
+    \def\semester{#1}
+}
+\newcommand{\tdate}[1] {
+    \def\testdate{#1}
+}
+\newcommand{\qtitle}[1] {
+    \def\quiztitle{#1}
+}
+
+% ___________________ function: FORMAT CODE
+\newcommand\mytab{\hspace*{20}}
+
+\newcommand{\code}[1]{
+\begin{quote}   % to indent the code
+\begin{verbatim} % need the extra line between this and #1 to make it work.
+
+#1
+\end{verbatim}
+\end{quote}
+}
+
+\newcommand\sq{\textquotesingle}
+
+% __________ function: DRAW LINES FOR ANSWERING QUESTIONS  ______
+% Create blank lines for essay-style questions
+% OPTIONAL argument is space between lines.
+% second argument is number of lines.
+% call like this for 5 lines with default 8mm: \lines{5}
+% call like this for 5 lines with 10mm: \lines[10]{5} 
+\newcounter{x}
+\newcommand{\lines}[2][8] {
+\forloop{x}{0}{\value{x} < #2}{ 
+    \vspace{#1mm}
+    \hrule
+}}
+
+% ______________ function: SETTING THE HEADER  ________________
+\newcommand{\setheader}[0] {
+    \begin{flushright}
+    \coursetitle, \semester \\
+    \quiztitle
+    \end{flushright}
+    NAME: \hfill
+    \ifdefined\testdate 
+        \testdate 
+    \fi
+ 
+    \medskip
+    \hrule 
+}
+
+\pgfmathsetseed{\number\pdfrandomseed}
+
+% ____________________ Array Indexing Helper ______________________
+
+\newcounter{index}
+\newcounter{toretrieve}     % only way I could figure out to test for equality with index
+\newcounter{listcount}
+
+% EXAMPLE call is \getitem{\mylist}{2}{myvalue}
+% This will get the 2nd value in mylist and assign it to myvalue
+\newcommand{\getitem}[3] {
+
+    % Because I want to modulo the index, I have to do some prework.
+    % The first thing we do is determine size
+    \setcounter{listcount}{0}
+    \foreach \val in #1 {
+        \stepcounter{listcount}
+    }
+
+    % set the index modulo the size (except it is 1-based indexing so need to adjust)
+    \ifnum\the\value{listcount}<#2
+        \def\listlength{\the\value{listcount}}      % easier to deal with when a var
+        
+        % get integer remainder (mathparse places results in \pgfmathresult)
+        \pgfmathparse{div(mod(#2,\listlength),1)}   
+        \ifnum\pgfmathresult=0  
+            % adjust for 1-based indexing
+            \def\getidx{\listlength}
+        \else
+            \def\getidx{\pgfmathresult}
+        \fi
+    \else 
+        % did not have to mod so use as is
+        \def\getidx{#2}
+    \fi
+
+    % debugging: #1 getting item number #2 assigning to #3 \\
+    \setcounter{toretrieve}{\getidx}
+    \setcounter{index}{1}
+    \foreach \val in #1 {
+        % debugging: At count \arabic{index} \\
+        \ifnum\value{index}=\value{toretrieve} {
+            % debugging: FOUND IT. The value is \val \\
+            % Need to use edef so that \val is immediately expanded
+            % Argument #3 is the variable name it is assigned to in global scope
+            \global\expandafter\edef\csname #3\endcsname{\val}
+            % is there a break command ??
+        }
+        \fi
+        \stepcounter{index}
+    }
+}
+
+\newcounter{callcount}
+\newcommand{\NewRandom}[1]{
+    \stepcounter{callcount}
+    \pgfmathsetmacro{\newrand}{random(1,#1)}
+    I made a new number \newrand \\
+    The call count is \arabic{callcount} \\
+  %\pgfmathsetmacro{\newrand}{random(1,#1)}
+  %And another \newrand
+}
+
+% Randomly select an item
+\newcommand{\getrandom}[3] {
+    % #1 the list to choose from
+    % #2 the maximum index (assuming 1 to max)
+    % #3 variable to which it is assigned
+    \NewRandom{#2}
+    \getitem{#1}{\newrand}{#3}
+}
+
+% ________________ DEFINING GENERAL QUIZ STRUCTURE _________
+
+% The following functions are called from quizsetup.tex 
+% They establish the content for each option in each question
+% The quizsetup.tex file must be in specified folder (e.g. quiz_01)
+
+% establishing the list of questions in the quiz
+% The 3 arguments are
+% #1: number of questions
+% #2: list of files, each containing 1 question
+% #3: list of lists. each list contains the versions for
+% the corresponding question in order of filenames.
+\newcommand{\allquestions}[3]{
+    \def\qcount{#1}
+    \def\filenames{#2}
+    \def\questionversions{#3}
+}
+
+% set the list of quiz versions
+% each quiz version is made up of specified versions of each question
+% e.g. { {a,a}, {a,b}, {b,b}, {b,a} } creates 4 versions of the quiz
+% the first quiz created contains version a of both question 1 and 2
+\newcommand{\quizversions}[1]{
+    %establishing content of quiz versions
+    \def\versionlists{#1}
+}
+
+
+
+% define the content of a version of a question
+% add question name to the version to distinguish from others
+% The 2 arguments are
+% #1 label for that version (typically a,b,c, ...)
+% #2 body of the question
+\newcommand\qversion[2]{
+    %Making command filename+versionlabel
+    \global\expandafter\def\csname \questionfile #1\endcsname{#2}
+    %I think I just made a command let us see 
+    %\csname \questionfile #1\endcsname
+}
+
+% Any shared text across versions prior to the question
+\newcommand{\qpreamble}[1]{
+    \global\expandafter\def\csname \questionfile qpreamble\endcsname{#1}
+}
+
+% Any shared text across versions after the question
+\newcommand{\qpostamble}[1]{
+    \global\expandafter\def\csname \questionfile qpostamble\endcsname{#1}
+}
+
+
+
+% defining quiz folder
+% defining each question
+% iterate through the questions to create as below
+
+\begin{document}
+
+% _________________________________________________________
+% ________________ HERE WE GO making a quiz _______________
+
+% The reading of the setup file calls functions that
+% establish the general structure of the quiz
+% and defines the list of files in which the questions are written
+\input{\setupfile}
+
+% create variables/macros for every part of the quiz
+\foreach \qfile in \filenames {
+
+    %Working on file \qfile{} xxxxxxxxxxxxxxxx
+    
+    % set the current question name
+    % which is added to the variables holding specific question info
+    \global\edef\questionfile{\qfile}
+
+    \def\fullpath{\qfolder/\qfile}
+    % Reading/running of a question file 
+    % assigns pre- and post-question content to variables/macros
+    % as well as content for each version of the question
+    % e.g. if file is one.tex then this will create a new
+    % variable onepreamble onepostable and onea oneb ...
+
+    %About to read in \fullpath{} xxxxxxxxxxxxxxx
+    
+    \input{\fullpath}
+}
+
+% ___________ Construct all requested versions of this quiz
+
+\newcounter{versioncount} % tracks which version of the quiz being generated
+\newcounter{qcount} % tracks which question is being generated
+
+% Create a quiz version for each element/list in versionlists
+\foreach \vlist in \versionlists {
+
+    \setheader 
+    \bigskip
+    \stepcounter{versioncount}
+    \setcounter{qcount}{1}
+    % debugging: This is the vlist \vlist
+    \foreach \version in \vlist {
+        % The filename is part of the question name, so get that first
+        \getitem{\filenames}{\the\value{qcount}}{fname}
+        % debugging: filename \fname \\
+
+        % Display the question number followed by preamble
+        \vspace{3mm}
+        \arabic{qcount} )
+        \csname \fname qpreamble\endcsname
+        %\vspace{3mm}
+
+        % Invoke the command corresponding to the question version
+        % This is defined as question{\fname}versions
+        \csname \fname \version\endcsname 
+
+        \csname \fname qpostamble\endcsname 
+
+        \stepcounter{qcount}
+        \vspace{5mm}
+    }
+    \newpage
+}
+
+\end{document}

@@ -1,0 +1,26 @@
+
+\qpreamble{
+    Write code to do the following: \\
+    
+    \def\varnames{x,y,z,n,v}
+}
+
+\qversion{a}{
+    \pgfmathsetmacro{\A}{random(1,6)}
+    \pgfmathsetmacro{\C}{random(1,6)}
+
+    \pgfmathsetseed{\number\pdfrandomseed}
+    \pgfmathrandominteger{\randomnumber}{1}{5}
+
+    % get the next variable name from the varnames list (it is modulo version count)
+    \getitem{\varnames}{\the\value{versioncount}}{var}
+    
+    \item \rule{50mm}{0.15mm} \texttt{\# Assign \(\A\) to the variable \var}. 
+    \vspace{4mm}
+    \item \rule{50mm}{0.15mm} \texttt{\# Change \var{} by adding a value from calling roll.}
+    \vspace{4mm}
+    \item \rule{50mm}{0.15mm} \texttt{\# Assign d to the variable \var}.
+}
+
+\qpostamble{
+}

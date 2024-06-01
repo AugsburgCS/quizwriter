@@ -1,0 +1,62 @@
+\qpreamble{Trace the call of the \texttt{myfun()} function and write what will be printed. Be sure to accurately show linefeeds.}
+
+\qversion{a}{
+
+\code{
+def myfun(c,n): \\
+\mytab    print(\sq--\sq,end=\sq{} \sq) \\
+\mytab    i = 0 \\
+\mytab    while i < n: \\
+\mytab\mytab        print(f\sq{c}-{c}\sq,end=\sq{} \sq) \\
+\mytab\mytab        i = i + 1 \\
+ \mytab   print(\sq--\sq)
+}
+
+\texttt{myfun(\sq X\sq,4)}
+}
+
+\qversion{b}{
+
+\code{
+def myfun(a,n): \\
+\mytab    i = 0 \\
+\mytab    while i < n: \\
+\mytab\mytab        print(f\sq-{a}-\sq,end=\sq{} \sq) \\
+\mytab\mytab        i = i + 1 \\
+\mytab    print()
+}
+
+\texttt{myfun(\sq\%\sq,4)}
+}
+
+\qversion{c}{
+
+\code{
+def myfun(c,n): \\
+\mytab    i = 0 \\
+\mytab    while i < n: \\
+\mytab\mytab        print(f\sq{c}{c}\sq,end=\sq{} \sq) \\
+\mytab\mytab       i = i + 1 \\
+\mytab    print() 
+}
+
+\texttt{myfun(\textquotesingle A\textquotesingle,4)}
+}
+
+\qversion{d}{
+\code{
+def myfun(c,n): \\
+\mytab    print(f\sq{c}{c}\sq,end=\sq{} \sq) \\
+\mytab    i = 0 \\
+\mytab    while i < n: \\
+\mytab\mytab        print(f\sq--\sq,end=\sq{} \sq) \\
+\mytab\mytab       i = i + 1 \\
+\mytab    print(f\sq{c}{c}\sq)
+}
+
+\texttt{myfun(\textquotesingle\#\textquotesingle,4)}
+}
+
+\qpostamble{
+    \lines{6}   
+}

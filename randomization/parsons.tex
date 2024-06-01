@@ -1,0 +1,52 @@
+
+\qpreamble{Consider the following lines of code from the GupPy syntax:}
+
+\qversion{a}{
+\code{
+Tile(YELLOW).place(x,2) \\
+Tile(RANDOM).place(x,2) \\
+x = x + 2 \\
+x = 5
+}
+The above code contains all lines necessary to place 2 tiles with one to the right of the other, but IN THE WRONG ORDER.
+
+}
+
+\qversion{b}{
+\code {
+y = y + 2 \\
+Tile(RANDOM).place(6,y) \\
+Tile(PINK).place(6,y) \\
+y = 5 
+}
+The above code contains all lines necessary to place 2 tiles with one above the other, but IN THE WRONG ORDER. 
+
+}
+
+\qversion{c}{
+\code {
+Tile(PINK).place(x,5) \\
+x = 6 \\
+Tile(YELLOW).place(x,5) \\
+x = x - 2
+}
+The above code contains all lines necessary to place 2 tiles with one to the left of the other, but IN THE WRONG ORDER. 
+
+}
+
+\qversion{d}{
+\code {
+y = y - 2 \\
+y = 6 \\
+Tile(PINK).place(3,y) \\
+Tile(YELLOW).place(3,y) 
+}
+The above code contains all lines necessary to place 2 tiles with one below the other, but IN THE WRONG ORDER. 
+
+}
+
+\qpostamble{
+\vspace{3mm}
+\textbf{Rewrite the code in the correct order} to place the tiles as indicated.
+    \lines{4}   % 4 lines at default mm apart
+}

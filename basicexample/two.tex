@@ -1,0 +1,33 @@
+
+\qpreamble{
+    Trace the code and write what is printed. Be sure to include
+    linefeeds as appropriate.
+}
+
+\qversion{a}{
+
+This is my second question version a.
+
+%\begin{lstlisting} % this does not work
+% unhappy with having to hand-format code.
+% Need to work on better solution
+\code{
+    alist = [\sq z\sq,\sq y\sq,\sq x\sq] \\
+    for el in alist: \\
+    \mytab print(el, end=\sq \sq) 
+}
+}
+
+\qversion{b}{
+
+This is my second question version b
+\code {
+    alist = [15,20,25] \\
+    for el in alist: \\
+    \mytab print(el, end=\sq \sq) 
+}
+}
+
+\qpostamble{
+    \lines{4}   % 4 lines at default mm apart
+}
