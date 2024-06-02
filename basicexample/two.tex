@@ -1,3 +1,7 @@
+% FYI \sq stands for single quote (the one Python uses). Is there a way to have ' be interpreted as is instead of as curly across the entire document?
+% \mytab inserts a fixed space.
+% \code is intended to nicely format code but it isn't very functional right now
+% These newcommands are defined in main.tex
 
 \qpreamble{
     Trace the code and write what is printed. Be sure to include
@@ -8,9 +12,11 @@
 
 This is my second question version a.
 
-%\begin{lstlisting} % this does not work
+%\begin{lstlisting} % this does not work here
+%\begin{verbatim} % this does not work here
 % unhappy with having to hand-format code.
 % Need to work on better solution
+
 \code{
     alist = [\sq z\sq,\sq y\sq,\sq x\sq] \\
     for el in alist: \\
@@ -29,5 +35,5 @@ This is my second question version b
 }
 
 \qpostamble{
-    \lines{4}   % 4 lines at default mm apart
+    \lines{4}   % 4 lines at default mm apart (defined in main.tex)
 }
