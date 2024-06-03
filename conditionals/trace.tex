@@ -1,0 +1,141 @@
+\qpreamble{Consider the code below.}
+
+\qversion{a} {
+\vspace{3mm}
+\code{
+   1  x = \rule{28mm}{0.25mm} \\
+   2  y = 6 \\
+   3  if x <= y: \\
+   4  \mytab    z = x \\
+   5  \mytab    print(x)  \\
+   6  else: \\
+   7  \mytab    z = y \\
+   8   \mytab   print(y)
+}
+%\vspace{4mm}
+\noindent{Write a value for x at line \#1 that would result in the execution of code block at line \#4 and \#5.}
+}
+
+\qversion{b} {
+\code{
+   1  x = roll()\\
+   2  if x < 4:\\
+   3  \mytab   Tile(RANDOM).place(x,6)\\
+   4  \mytab    x = x  2\\
+   5  else:\\
+   6  \mytab    Tile(RANDOM).place(x,10)\\
+   7   \mytab   x = x - 2
+}
+\vspace{5mm}
+\noindent{State a roll() value for line \#1 that would result in the execution of code block at line \#3 and \#4.}
+\vspace{5mm}
+
+roll() = \rule{28mm}{0.25mm}
+
+}
+
+\qversion{c} {
+\code{
+     1  color = \rule{28mm}{0.25mm} \\
+     2  y = 2\\
+     3  if color == PINK:\\
+     4  \mytab    Tile(color).place(0,y)\\
+     5  \mytab    Tile(YELLOW).place(0,y+2)\\
+     6  else:\\
+     7  \mytab    Tile(color).place(0,y)\\
+     8  \mytab    Tile(PINK).place(0,y+2
+}
+\vspace{5mm}
+\noindent{State a color value for line \#1 that would result in the execution of the code block at line \#4 and \#5.
+}
+\vspace{5mm}
+
+color = \rule{28mm}{0.25mm}
+}
+
+\qversion{d} {
+\code{
+     1  x = roll() + roll()\\
+     2  y = roll() + roll()\\
+     3  if x > 10: \\
+     4  \mytab    x = 10 \\
+     5  else:\\
+     6  \mytab    x = 6\\
+     7  if y == 12:\\
+     8  \mytab    y = 10 
+}
+\pgfmathsetmacro{\A}{random(8,12)}
+\pgfmathsetmacro{\B}{random(10,12)}
+\vspace{5mm}
+\noindent{In the code above, circle the lines of code that will be executed if the value x is initialized to {\A} and the value y is initialize to {\B}.
+}
+}
+
+\qversion{e} {
+\code{
+     1  x = roll() * 2\\
+     2  y = roll() * 2\\
+     3  if x < 6: \\
+     4  \mytab     dx = 2\\
+     5  else:\\
+     6  \mytab     dx = -2\\
+     7  if y < 6:\\
+     8  \mytab     dy = 2\\
+     9  else:\\
+     10  \mytab    dy = -2
+}
+\pgfmathsetmacro{\C}{random(1,6)*2}
+\pgfmathsetmacro{\D}{random(1,6)*2}
+\vspace{5mm}
+\noindent{Circle the lines of code above that will be executed if the value x is initialized to {\C} and the value y is initialize to {\D}.}
+}
+
+\qversion{f} {
+\code{
+   1  x = \rule{28mm}{0.25mm} \\
+   2  y = 6 \\
+   3  if x <= y: \\
+   4  \mytab    z = x \\
+   5  \mytab    print(x)  \\
+   6  else: \\
+   7  \mytab    z = y \\
+   8  \mytab    print(y) 
+}
+\vspace{5mm}
+\noindent{Write a value for x in the blank at line \#1 that would result in the execution of the code block at line \#7 and \#8.}
+}
+
+\qversion{g} {
+\code{
+   1  x = roll()\\
+   2  if x < 4:\\
+   3  \mytab    Tile(RANDOM).place(x,6)\\
+   4  \mytab    x = x + 2\\
+   5  else:\\
+   6  \mytab    Tile(RANDOM).place(x,10)\\
+   7  \mytab    x = x - 2
+}
+\vspace{5mm}
+\noindent{State a roll() value for line \#1 that would result in the execution of the code block at line \#6 and \#7.}
+\vspace{5mm}
+
+roll() = \rule{28mm}{0.25mm}
+}
+
+\qversion{h} {
+\code{
+     1  color = \rule{28mm}{0.25mm} \\
+     2  y = 2\\
+     3  if color == PINK:\\
+     4  \mytab    Tile(color).place(0,y)\\
+     5  \mytab    Tile(YELLOW).place(0,y+2)\\
+     6  else:\\
+     7  \mytab    Tile(color).place(0,y)\\
+     8  \mytab    Tile(PINK).place(0,y+2
+}
+\vspace{5mm}
+\noindent{State a color value for line \#1 that would result in the execution of the code block at line \#7 and \#8.
+}
+}
+
+\qpostamble{}

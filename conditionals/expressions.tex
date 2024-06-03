@@ -1,0 +1,56 @@
+\qpreamble{For each expression below, write what it is equal to after being evaluated.
+\vspace{8mm}
+}
+
+\qversion{a} {
+
+% random numbers to place in expressions
+\pgfmathsetmacro{\A}{random(1,10)}
+\pgfmathsetmacro{\B}{random(1,10)}
+\pgfmathsetmacro{\C}{random(6,20)}
+\pgfmathsetmacro{\D}{random(2,3)}
+\pgfmathsetmacro{\E}{random(1,10)}
+\pgfmathsetmacro{\F}{random(1,9)}
+\pgfmathsetmacro{\G}{random(1,10)}
+\pgfmathsetmacro{\H}{random(1,10)}
+\pgfmathsetmacro{\I}{random(1,10)}
+\pgfmathsetmacro{\J}{random(1,20)}
+\pgfmathsetmacro{\K}{random(1,10)}
+\pgfmathsetmacro{\L}{random(1,10)}
+
+\pgfmathsetmacro{\opr}{random(1,2)}
+\ifnum\opr=1 \def\opb{<=}
+\else \def\opb{>=}
+\fi 
+
+\pgfmathsetmacro{\opr}{random(1,3)}
+\ifnum\opr=1 \def\ops{<}
+\else \ifnum\opr=2 \def\ops{>}
+\else \def\ops{==}
+\fi \fi
+
+\pgfmathsetmacro{\opr}{random(1,3)}
+\ifnum\opr=1 \def\opn{<}
+\else \ifnum\opr=2 
+\def\opn{>}
+\else 
+\def\opn{==}
+
+\fi \fi
+
+\begin{tabular}{ l l l l l l l }
+    % arithmetic 1
+    \(({\A}+{\B}) =\) \rule{28mm}{0.25mm} & & 
+    \(({\C}/{\D}) =\) \rule{28mm}{0.25mm} & &  
+    \(({\E} \%2) =\) \rule{28mm}{0.25mm} \\
+
+    & & & & & & \\
+    
+    \(({\F}{\opb}\G) =\) \rule{28mm}{0.25mm} & &
+    \((({\H}+{\I}){\ops}\J) =\) \rule{28mm}{0.25mm} & & 
+    \((not({\K}{\opn}\L)) =\) \rule{28mm}{0.25mm} \\
+    
+\end{tabular}
+}
+
+\qpostamble{}
