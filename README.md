@@ -55,7 +55,7 @@ Each time you create a new quiz folder, you can change the folder name above and
 
 ## Use Provided Quizzes 
 
-I have provided a collection of quizzes that I use in Introduction to Programming (Python). Feel free to use them in your courses.
+I have provided a collection of quizzes that I use in Introduction to Programming (Python). Feel free to use them in your courses. You can see the pdf's that result from these quizzes in the folder _resultingpdfs_.
 
 ## It Works, Eventually
 
